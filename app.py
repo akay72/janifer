@@ -21,7 +21,7 @@ def get_equations(url):
 # Preprocess equations to clean and standardize LaTeX
 def preprocess_equation(equation):
     # Replace Unicode variables with LaTeX equivalents
-    equation = equation.replace("β", r"\beta").replace("ε", r"\epsilon")
+    equation = equation.replace("β", r"\beta").replace("ε", r"\epsilon").replace("ϵ", r"\varepsilon")
     # Remove unnecessary macros
     equation = re.sub(r"\\displaystyle", "", equation)
     equation = re.sub(r"\\boldsymbol", "", equation)
@@ -72,10 +72,11 @@ if url:
             "x": x_color,
             "y": y_color,
             r"\beta": b_color,
-            r"\epsilon": e_color,
-            r"\hat{y}": y_color,  # Optional: explicitly color decorated variables
+            r"\epsilon": e_color,      # Standard LaTeX epsilon
+            r"\varepsilon": e_color,  # Rounded epsilon
+            r"ϵ": e_color,            # Unicode epsilon
+            r"\hat{y}": y_color,      # Optional: explicitly color decorated variables
             r"\hat{\beta}": b_color,
-            r"ε": e_color
         }
 
         # Initialize session state for navigation
